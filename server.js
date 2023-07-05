@@ -26,15 +26,17 @@ mongoose.connect(process.env.MONGO_DB_URI)
 app.get('/', (req, res) => res.status(200).send('server running'));
 
 app.get('/add-profile', (req, res) => {
+    async function run() {
     try {
         const database = client.db("project-forms");
         const profiles = database.collection("profiles");
-        profiles.find({}).toArray( (err, results) => {
-            res.send(results);
-        })
+        const result = await profiles.find().toArray();
+        res.status(200).send(result);
     } catch (err) {
         console.log(err);
     };
+    }
+    run().catch(console.dir);
 });
 
 app.delete('/add-profile', (req, res) => {
