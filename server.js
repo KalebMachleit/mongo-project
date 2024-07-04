@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config(); // access env file which is hidden to the public
 const express = require("express");
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -23,14 +23,14 @@ mongoose.set('strictQuery', true);
 mongoose.connect(process.env.MONGO_DB_URI)
     .then(() => (console.log('connect to mongodb')), err => {console.log(`cant connect to db ${err}`)});
 //routes
-app.get('/', (req, res) => res.status(200).send('server running'));
+app.get('/', (req, res) => res.status(200).send('server running')); //displays text if opened in chrome
 
-app.get('/add-profile', (req, res) => {
+app.get('/get-profiles', (req, res) => {
     async function run() {
     try {
-        const database = client.db("project-forms");
-        const profiles = database.collection("profiles");
-        const result = await profiles.find().toArray();
+        const database = client.db("project-forms"); // find database within cluster
+        const profiles = database.collection("profiles"); //find collection within database
+        const result = await profiles.find().toArray(); // convert to array in case of multiple profiles
         res.status(200).send(result);
     } catch (err) {
         console.log(err);
@@ -39,7 +39,7 @@ app.get('/add-profile', (req, res) => {
     run().catch(console.dir);
 });
 
-app.delete('/add-profile', (req, res) => {
+app.delete('/delete-profile', (req, res) => {
     async function run() {
         try {
           const database = client.db("project-forms");

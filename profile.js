@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose');//require dependencies
 
 const schema = new mongoose.Schema(
     {
@@ -6,7 +6,7 @@ const schema = new mongoose.Schema(
         name: {type: String, default: ""},
         birthday: {type: String, default: ""},
     },
-    {
+    { //metadata
         timestamps: {
             createdAt: "createdOn",
             updatedAt: "updatedOn"
@@ -14,8 +14,8 @@ const schema = new mongoose.Schema(
         toJSON: {virtuals: true},
         toObject: {virtuals: true}
     }
-);
+); //template for the data being stored in mongodb cluster
 
 const ProfileModel = mongoose.model('profiles', schema);
 
-module.exports = ProfileModel;
+module.exports = ProfileModel; //make usable in other files
